@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Adicionar Novo Produto</h2>
+    <form method="POST" id="adicionar-produto-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco" name="preco" required><br>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea><br>
+        <label for="imagem">Nome do Arquivo da Imagem:</label>
+        <input type="text" id="imagem" name="imagem" required><br>
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria" required>
+            <option value="Placa de Vídeo">Placa de Vídeo</option>
+            <option value="Processador">Processador</option>
+            <option value="Teclado">Teclado</option>
+            <option value="Mouse">Mouse</option>
+        </select><br>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <script>
+        document.getElementById('preco').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = (value / 100).toFixed(2);
+            value = value.replace('.', ',').replace(/(\d)(?=(\d{3})+,\d{2})/g, '$1.');
+            e.target.value = 'R$ ' + value;
+        });
+    </script>
+{% endblock %}

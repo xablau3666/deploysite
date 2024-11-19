@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="notification-container">
+        <div class="notification" style="display: none;">
+            Para finalizar a compra, por favor, faça um Pix para o número <strong>65984477231</strong> no valor total de <strong>R$ {{ total }}</strong>.
+            <br> Assim que o pagamento for confirmado, o produto será despachado e enviado para a sua casa.
+            <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+    </div>
+    <h2>Seu Carrinho</h2>
+    <div class="produtos">
+        {% if produtos %}
+            {% for produto in produtos %}
+                <div class="produto">
+                    <img src="{{ url_for('static', filename='imagens/' + produto['imagem']) }}" alt="{{ produto['nome'] }}">
+                    <h3>{{ produto['nome'] }}</h3>
+                    <p class="preco">R$ {{ produto['preco'] }}</p>
+                    <p>{{ produto['descricao'] }}</p>
+                    <a href="{{ url_for('remover_carrinho', produto_id=produto['id']) }}" class="remover-btn">Remover</a>
+                </div>
+            {% endfor %}
+            <div class="checkout">
+                <h3>Total: R$ {{ total }}</h3>
+                <button class="comprar-btn" onclick="finalizarCompra()">Finalizar Compra</button>
+            </div>
+        {% else %}
+            <p>Seu carrinho está vazio.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function finalizarCompra() {
+            const notification = document.querySelector('.notification');
+            notification.style.display = 'block';
+        }
+    </script>
+{% endblock %}

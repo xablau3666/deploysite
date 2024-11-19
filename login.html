@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MaÇoNaRiA - Gamers Hardware Virtual Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <img src="{{ url_for('static', filename='imagens/logo3.png') }}" alt="Logo da MaÇoNaRiA" class="logo">
+        <h2>Login</h2>
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+            
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha" required>
+
+            <button type="submit">Entrar</button>
+            <p>Não tem uma conta? <a href="{{ url_for('register') }}">Registre-se</a></p>
+        </form>
+    </div>
+</body>
+</html>

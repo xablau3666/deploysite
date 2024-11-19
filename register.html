@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - MaÇoNaRiA - Gamers Hardware Virtual Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="register-container">
+        <h2>Registro</h2>
+        <form method="POST" action="{{ url_for('register') }}">
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome" required>
+            
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha" required>
+
+            <label>
+                <input type="checkbox" name="is_admin" id="is_admin" onclick="toggleAdminSenha()"> Quero ser administrador
+            </label>
+
+            <label for="admin_senha" id="admin_senha_label" style="display: none;">Senha de Administrador</label>
+            <input type="password" name="admin_senha" id="admin_senha" style="display: none;">
+
+            <button type="submit">Registrar</button>
+            <p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login</a></p>
+        </form>
+    </div>
+
+    <script>
+        function toggleAdminSenha() {
+            var adminCheckbox = document.getElementById('is_admin');
+            var adminSenhaLabel = document.getElementById('admin_senha_label');
+            var adminSenhaInput = document.getElementById('admin_senha');
+            if (adminCheckbox.checked) {
+                adminSenhaLabel.style.display = 'block';
+                adminSenhaInput.style.display = 'block';
+                adminSenhaInput.required = true;
+            } else {
+                adminSenhaLabel.style.display = 'none';
+                adminSenhaInput.style.display = 'none';
+                adminSenhaInput.required = false;
+            }
+        }
+    </script>
+</body>
+</html>

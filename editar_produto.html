@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Editar Produto</h2>
+    <form method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="{{ produto.nome }}" required><br>
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco" name="preco" value="R$ {{ '{:,.2f}'.format(produto.preco).replace(',', 'v').replace('.', ',').replace('v', '.')}}" required><br>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required>{{ produto.descricao }}</textarea><br>
+        <label for="imagem">Nome do Arquivo da Imagem:</label>
+        <input type="text" id="imagem" name="imagem" value="{{ produto.imagem }}" required><br>
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria" required>
+            <option value="Placa de Vídeo" {% if produto.categoria == 'Placa de Vídeo' %}selected{% endif %}>Placa de Vídeo</option>
+            <option value="Processador" {% if produto.categoria == 'Processador' %}selected{% endif %}>Processador</option>
+            <option value="Teclado" {% if produto.categoria == 'Teclado' %}selected{% endif %}>Teclado</option>
+            <option value="Mouse" {% if produto.categoria == 'Mouse' %}selected{% endif %}>Mouse</option>
+        </select><br>
+        <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <script>
+        document.getElementById('preco').addEventListener('input', function (e) {
+            let value = e.target.value;
+            value = value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+            value = (value / 100).toFixed(2); // Adiciona dois decimais
+            value = value.replace('.', ','); // Substitui ponto por vírgula
+            e.target.value = 'R$ ' + value; // Adiciona o símbolo do Real
+        });
+    </script>
+{% endblock %}

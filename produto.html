@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="detalhes-produto">
+        <img src="{{ url_for('static', filename='imagens/' + produto.imagem) }}" alt="{{ produto.nome }}">
+        <h2>{{ produto.nome }}</h2>
+        <p>{{ produto.descricao }}</p>
+        <p>Preço: R${{ produto.preco }}</p>
+        <a href="{{ url_for('index') }}">Voltar</a>
+    </div>
+{% endblock %}

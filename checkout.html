@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Finalizar Compra</h2>
+    <p>Para finalizar a compra, por favor, faça um Pix para o número <strong>65984477231</strong> no valor total de <strong>R$ {{ total }}</strong>.</p>
+    <p>Assim que o pagamento for confirmado, o produto será despachado e enviado para a sua casa.</p>
+    <h3>Resumo do Pedido</h3>
+    <div class="produtos">
+        {% for produto in session['carrinho'] %}
+            <div class="produto">
+                <img src="{{ url_for('static', filename='imagens/' + produto['imagem']) }}" alt="{{ produto['nome'] }}">
+                <h3>{{ produto['nome'] }}</h3>
+                <p class="preco">R$ {{ produto['preco'] }}</p>
+                <p>{{ produto['descricao'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="notification-container">
+        <div class="notification" id="checkout-notification">
+            Para finalizar a compra, por favor, faça um Pix para o número <strong>65984477231</strong> no valor total de <strong>R$ {{ total }}</strong>. 
+            <br> Assim que o pagamento for confirmado, o produto será despachado e enviado para a sua casa.
+            <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        // Função para mostrar notificação na tela
+        function showNotification(message) {
+            const notification = document.querySelector('.notification');
+            notification.innerHTML = message + '<button class="close-btn" onclick="this.parentElement.style.display=\'none\';">&times;</button>';
+            notification.style.display = 'block';
+
+            // Rolagem suave até a notificação
+            notification.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Exibe a mensagem de confirmação da compra
+        showNotification(`Para finalizar a compra, por favor, faça um Pix para o número 65984477231 no valor total de R$ {{ total }}. Assim que o pagamento for confirmado, o produto será despachado e enviado para a sua casa.`);
+    </script>
+{% endblock %}
